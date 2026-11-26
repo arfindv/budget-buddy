@@ -1,59 +1,42 @@
 // Owner: Core
 #include "input.h"
 #include <iostream>
-#include <string>
+#include <limits>
+
 using namespace std;
 
 int readInt(const string& prompt, int minValue, int maxValue) {
+    int value;
     while (true) {
         cout << prompt;
-        string line;
-        getline(cin, line);
-
-        if (cin.eof()) {
-            cout << "\nВвід закрито.\n";
-            return minValue;
+        if (cin >> value && value >= minValue && value <= maxValue) {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return value;
         }
-
-        try {
-            int value = stoi(line);
-            if (value >= minValue && value <= maxValue) {
-                return value;
-            }
-            cout << "Помилка: число має бути від " << minValue
-                 << " до " << maxValue << ".\n";
-        } catch (...) {
-            cout << "Помилка: введіть ціле число.\n";
-        }
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Помилка. Введіть ціле число від " << minValue
+             << " до " << maxValue << ".\n";
     }
 }
 
 double readDouble(const string& prompt, double minValue) {
+    double value;
     while (true) {
         cout << prompt;
-        string line;
-        getline(cin, line);
-
-        if (cin.eof()) {
-            cout << "\nВвід закрито.\n";
-            return minValue;
+        if (cin >> value && value >= minValue) {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return value;
         }
-
-        try {
-            double value = stod(line);
-            if (value >= minValue) {
-                return value;
-            }
-            cout << "Помилка: число має бути не менше " << minValue << ".\n";
-        } catch (...) {
-            cout << "Помилка: введіть число, наприклад 150.50.\n";
-        }
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Помилка. Введіть число не менше " << minValue << ".\n";
     }
 }
 
 string readLine(const string& prompt) {
-    cout << prompt;
     string line;
+    cout << prompt;
     getline(cin, line);
     return line;
 }

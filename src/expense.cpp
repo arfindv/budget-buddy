@@ -1,59 +1,58 @@
 // Owner: Core
 #include "expense.h"
-#include <iomanip>
-using namespace std;
 
-string categoryToString(Category c) {
-    if (c == Category::Food) {
-        return "Food";
+static std::string toUpperText(const std::string& text) {
+    std::string result = text;
+    for (size_t i = 0; i < result.size(); i++) {
+        if (result[i] >= 'a' && result[i] <= 'z') {
+            result[i] = result[i] - 'a' + 'A';
+        }
     }
-    if (c == Category::Transport) {
-        return "Transport";
-    }
-    if (c == Category::Housing) {
-        return "Housing";
-    }
-    if (c == Category::Entertainment) {
-        return "Entertainment";
-    }
-    if (c == Category::Health) {
-        return "Health";
-    }
-    return "Other";
+    return result;
 }
 
-bool stringToCategory(const string& s, Category& out) {
-    if (s == "Food") {
-        out = Category::Food;
-        return true;
+std::string categoryToString(Category c) {
+    switch (c) {
+        case Category::Food:      return "FOOD";
+        case Category::Transport: return "TRANSPORT";
+        case Category::Study:     return "STUDY";
+        case Category::Fun:       return "FUN";
+        case Category::Other:     return "OTHER";
     }
-    if (s == "Transport") {
-        out = Category::Transport;
-        return true;
-    }
-    if (s == "Housing") {
-        out = Category::Housing;
-        return true;
-    }
-    if (s == "Entertainment") {
-        out = Category::Entertainment;
-        return true;
-    }
-    if (s == "Health") {
-        out = Category::Health;
-        return true;
-    }
-    if (s == "Other") {
-        out = Category::Other;
-        return true;
-    }
-    return false;
+    return "OTHER";
 }
 
-ostream& operator<<(ostream& os, const Expense& e) {
-    os << "#" << e.id << " | " << e.date << " | ";
-    os << fixed << setprecision(2) << e.amount;   
-    os << " | " << categoryToString(e.category);
-    os << " | " << e.description;
+bool parseCategory(const std::string& input, Category& outCategory) {
+    std::string word = toUpperText(input);
+
+    if (word == "FOOD") {
+        outCategory = Category::Food;
+    } else if (word == "TRANSPORT") {
+        outCategory = Category::Transport;
+    } else if (word == "STUDY") {
+        outCategory = Category::Study;
+    } else if (word == "FUN") {
+        outCategory = Category::Fun;
+    } else if (word == "OTHER") {
+        outCategory = Category::Other;
+    } else {
+        return false;
+    }
+    return true;
+}
+
+bool isValidDay(int day) {
+    return day >= 1 && day <= 31;
+}
+
+bool isValidAmount(double amount) {
+    return amount > 0.0;
+}
+
+std::ostream& operator<<(std::ostream& os, const Expense& e) {
+    os << e.day << " | "
+       << categoryToString(e.category) << " | "
+       << e.amount << " | "
+       << e.note;
     return os;
 }

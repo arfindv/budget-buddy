@@ -3,16 +3,17 @@
 #include <iostream>
 #include <string>
 
-enum class Category { Food, Transport, Housing, Entertainment, Health, Other };
+enum class Category { Food, Transport, Study, Fun, Other };
 
 struct Expense {
-    int id;
-    std::string date;
-    double amount;
-    Category category;
-    std::string description;
+    int day = 1;
+    Category category = Category::Other;
+    double amount = 0.0;
+    std::string note;
 };
 
 std::string categoryToString(Category c);
-bool stringToCategory(const std::string& s, Category& out);
+bool parseCategory(const std::string& input, Category& outCategory);
+bool isValidDay(int day);
+bool isValidAmount(double amount);
 std::ostream& operator<<(std::ostream& os, const Expense& e);
