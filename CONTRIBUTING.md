@@ -1,5 +1,6 @@
 # Як працюємо з репозиторієм
 
+0. **Працюєш із Claude?** Прикріпи йому `docs/AI_CONTEXT.md` і напиши свою роль.
 1. **Клонуй:** `git clone https://github.com/arfindv/budget-buddy.git`
 2. **Свіжий main:** `git checkout main && git pull`
 3. **Своя гілка:** `git checkout -b feature/<номер-issue>-коротко` (напр. `feature/5-parser`)
