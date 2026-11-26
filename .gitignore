@@ -1,0 +1,5 @@
+budget-buddy
+*.o
+*.exe
+.vscode/
+.idea/
