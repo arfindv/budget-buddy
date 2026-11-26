@@ -26,4 +26,4 @@
 | src/analytics.* | Developer (Analytics) |
 | src/display.cpp, docs/*.pptx | Presenter |
 | src/budget.cpp, src/delete.cpp, tests/ | QA Lead |
-| docs/specification.md, src/features.h | Team Lead |
+| docs/specification.md, Makefile, CONTRIBUTING.md, .github/ | Team Lead |
